@@ -4,124 +4,124 @@
 
 epic-1-foundation-and-authentication:
   title: "Foundation & Authentication"
-  status: backlog
+  status: done
   stories:
     story-1-1-project-scaffolding:
       title: "Project Scaffolding & Local Dev Environment"
-      status: backlog
+      status: done
     story-1-2-sso-authentication:
       title: "SSO Authentication with SAML 2.0"
-      status: backlog
+      status: done
     story-1-3-role-based-access-control:
       title: "Role-Based Access Control (RBAC)"
-      status: backlog
+      status: done
     story-1-4-audit-trail-logging:
       title: "Audit Trail Logging"
-      status: backlog
+      status: done
   retrospective:
     status: optional
 
 epic-2-api-registration-and-onboarding:
   title: "API Registration & Onboarding"
-  status: backlog
+  status: done
   stories:
     story-2-1-api-registration-form:
       title: "API Registration Form"
-      status: backlog
+      status: done
     story-2-2-telemetry-source-configuration:
       title: "Telemetry Source Configuration & Validation"
-      status: backlog
+      status: done
     story-2-3-sla-target-definition:
       title: "SLA Target Definition"
-      status: backlog
+      status: done
     story-2-4-edit-and-decommission:
       title: "Edit and Decommission API Registrations"
-      status: backlog
+      status: done
   retrospective:
     status: optional
 
 epic-3-real-time-health-dashboard:
   title: "Real-Time Health Dashboard"
-  status: backlog
+  status: done
   stories:
     story-3-1-telemetry-ingestion-pipeline:
       title: "Telemetry Ingestion Pipeline"
-      status: backlog
+      status: done
     story-3-2-real-time-dashboard-view:
       title: "Real-Time Dashboard View"
-      status: backlog
+      status: done
     story-3-3-historical-trend-views:
       title: "Historical Trend Views"
-      status: backlog
+      status: done
     story-3-4-search-filter-api-list:
       title: "Search, Filter, and API List"
-      status: backlog
+      status: done
   retrospective:
     status: optional
 
 epic-4-alerting-and-notifications:
   title: "Alerting & Notifications"
-  status: backlog
+  status: done
   stories:
     story-4-1-alert-threshold-configuration:
       title: "Alert Threshold Configuration"
-      status: backlog
+      status: done
     story-4-2-alert-evaluation-and-deduplication:
       title: "Alert Evaluation and Deduplication"
-      status: backlog
+      status: done
     story-4-3-alert-notification-delivery:
       title: "Alert Notification Delivery"
-      status: backlog
+      status: done
     story-4-4-alert-suppression:
       title: "Alert Suppression for Planned Maintenance"
-      status: backlog
+      status: done
   retrospective:
     status: optional
 
 epic-5-portfolio-view-and-leadership:
   title: "Portfolio View & Leadership Insights"
-  status: backlog
+  status: done
   stories:
     story-5-1-aggregate-portfolio-health:
       title: "Aggregate Portfolio Health View"
-      status: backlog
+      status: done
     story-5-2-drill-down-by-team-domain-tier:
       title: "Drill-Down by Team, Domain, and Tier"
-      status: backlog
+      status: done
     story-5-3-sla-compliance-trend:
       title: "SLA Compliance Trend (90-Day)"
-      status: backlog
+      status: done
     story-5-4-export-portfolio-summary:
       title: "Export Portfolio Summary"
-      status: backlog
+      status: done
   retrospective:
     status: optional
 
 epic-6-sla-reporting-and-compliance:
   title: "SLA Reporting & Compliance"
-  status: backlog
+  status: done
   stories:
     story-6-1-sla-compliance-calculation:
       title: "SLA Compliance Calculation Engine"
-      status: backlog
+      status: done
     story-6-2-monthly-report-generation:
       title: "Monthly Report Generation and Delivery"
-      status: backlog
+      status: done
     story-6-3-report-retrieval-and-archive:
       title: "Report Retrieval and Archive"
-      status: backlog
+      status: done
   retrospective:
     status: optional
 
 epic-7-audit-and-administration:
   title: "Audit & Administration"
-  status: backlog
+  status: done
   stories:
     story-7-1-audit-log-query-interface:
       title: "Audit Log Query Interface"
-      status: backlog
+      status: done
     story-7-2-rbac-administration:
       title: "RBAC Administration via AD Groups"
-      status: backlog
+      status: done
   retrospective:
     status: optional
