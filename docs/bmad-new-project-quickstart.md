@@ -332,6 +332,101 @@ The role mapping also makes it easier to set permissions and review responsibili
 
 ---
 
+## Testing Workflow Integration (TEA Module)
+
+The default BMAD sequence does not include testing workflows in the core path — testing is treated as **opt-in**. But for enterprise teams, the TEA (Test Architect Enterprise) module should be considered **mandatory**. It weaves into the existing phases rather than being a separate stage.
+
+### Why TEA Isn't in the Default Sequence
+
+BMAD treats testing as opt-in because:
+- Not every project needs full ATDD/CI setup (prototypes, demos, throwaway tools)
+- TEA is a separate module — some installs don't have it
+- Keeps the core sequence simple for first-time users
+
+### Two Test/QA-Related Persona Sets
+
+| Module | Persona | Command | Purpose |
+|--------|---------|---------|---------|
+| BMM (core) | Quinn (QA Engineer) | `/bmad-agent-qa` | Conversational QA persona — ask about test strategy, edge cases, coverage gaps. No fixed workflow attached |
+| TEA (enterprise) | Murat (Test Architect) | `/bmad-tea` | Master test architect — has structured workflows for test design, automation, CI gates, NFR assessment |
+
+**Murat (TEA) is the real testing power.** Quinn is for ad-hoc QA conversations.
+
+### Full TEA Skill Catalog
+
+| Command | When to Run | Purpose |
+|---------|-------------|---------|
+| `/bmad-tea` | Anytime | Talk to Murat (Test Architect persona) |
+| `/bmad-teach-me-testing` | Anytime | Learn testing fundamentals (TEA Academy) |
+| `/bmad-testarch-test-design` | After Architecture, before coding (Phase 3) | Risk-based test plan |
+| `/bmad-testarch-framework` | Before first dev story (Phase 3 → 4) | Initialize test framework (Playwright/Cypress) |
+| `/bmad-testarch-ci` | Before first dev story (Phase 3 → 4) | Set up CI/CD pipeline with quality gates |
+| `/bmad-testarch-atdd` | Per story, before dev (Phase 4) | Generate failing acceptance tests (TDD red phase) |
+| `/bmad-testarch-automate` | Per story, after dev (Phase 4) | Expand test coverage |
+| `/bmad-testarch-nfr` | After implementation (Phase 4) | Assess non-functional requirements |
+| `/bmad-testarch-test-review` | After implementation (Phase 4) | Quality audit (0-100 scoring) |
+| `/bmad-testarch-trace` | After implementation (Phase 4) | Traceability matrix + gate decision |
+| `/bmad-qa-generate-e2e-tests` | After feature complete (Phase 4) | Generate E2E tests for existing features |
+
+### TEA-Enhanced BMAD Workflow
+
+When TEA is included, the workflow looks like this:
+
+```
+Phase 1 — Analysis
+  /bmad-product-brief
+
+Phase 2 — Planning
+  /bmad-create-prd
+  /bmad-validate-prd
+  /bmad-create-ux-design                  (optional)
+
+Phase 3 — Solutioning
+  /bmad-create-architecture
+  /bmad-testarch-test-design              ← TEA: Risk-based test plan from architecture
+  /bmad-testarch-framework                ← TEA: Initialize Playwright/Cypress
+  /bmad-testarch-ci                       ← TEA: CI/CD quality gates
+  /bmad-create-epics-and-stories
+  /bmad-check-implementation-readiness
+
+Phase 4 — Implementation (per story loop)
+  /bmad-sprint-planning
+  /bmad-create-story
+  /bmad-testarch-atdd                     ← TEA: Failing acceptance tests first
+  /bmad-dev-story
+  /bmad-testarch-automate                 ← TEA: Expand coverage
+  /bmad-code-review
+  /bmad-testarch-test-review              ← TEA: Quality score
+  /bmad-testarch-trace                    ← TEA: Traceability matrix
+  /bmad-testarch-nfr                      ← TEA: NFR validation
+  /bmad-sprint-status
+  ... repeat per story ...
+  /bmad-retrospective
+```
+
+### Enterprise Recommendation
+
+For enterprise team adoption, position TEA as **the enterprise enhancement layer** to BMAD's core workflow. These additions should be mandatory:
+
+| When | Required Command | Why |
+|------|------------------|-----|
+| After architecture | `/bmad-testarch-test-design` | Risk-based test strategy upfront |
+| Before first story | `/bmad-testarch-framework` | Test framework ready before any code is written |
+| Before first story | `/bmad-testarch-ci` | CI quality gates enforced from day 1 |
+| Per story | `/bmad-testarch-atdd` → `/bmad-dev-story` → `/bmad-testarch-automate` | Strict TDD cycle enforced |
+| After each story | `/bmad-testarch-test-review` | Quality score before marking done |
+| End of epic | `/bmad-testarch-trace` + `/bmad-testarch-nfr` | Traceability and NFR validation for compliance evidence |
+
+### When to Skip TEA Workflows
+
+- Personal prototypes and throwaway tools
+- Demo projects where speed > rigor
+- Spikes and proof-of-concepts
+
+For everything else — and especially anything heading toward production — use TEA.
+
+---
+
 ### Phase 1 — Analysis
 
 #### Create Product Brief
