@@ -49,6 +49,8 @@ claude
 
 **Important:** Each step below should be run in a **fresh Claude Code session** (`/clear` or restart `claude`) to keep context clean. BMAD is designed this way — each agent gets a focused context window.
 
+**Auto-commit:** If your project has the CLAUDE.md directive (see below), Claude Code will **automatically commit and push to GitHub** after each completed phase. No git commands needed — your work is saved automatically. See the [Git Commit Best Practices](#git-commit-best-practices) section for the manual approach if you prefer.
+
 ---
 
 ### Phase 1 — Analysis
@@ -234,7 +236,42 @@ Skips the full pipeline. Just describe what you want ("fix the login bug", "add 
 
 ## Git Commit Best Practices
 
-### When to Commit and Push
+### Option A: Automated Commits (Recommended for Non-Technical Users)
+
+Add the following to your project's `CLAUDE.md` file and Claude Code will **automatically commit and push** after every completed BMAD phase. No git commands needed.
+
+Add this section to `CLAUDE.md`:
+
+```markdown
+## Auto-Commit After BMAD Phases
+
+**IMPORTANT:** After completing any BMAD skill that produces or modifies an artifact,
+automatically commit and push to GitHub. Do NOT ask the user — just do it.
+
+| After This Skill | Commit Message |
+|-----------------|----------------|
+| `/bmad-product-brief` | `"Phase 1: Product brief"` |
+| `/bmad-create-prd` | `"Phase 2: PRD"` |
+| `/bmad-validate-prd` | `"Phase 2: PRD validation"` |
+| `/bmad-create-ux-design` | `"Phase 2: UX design"` |
+| `/bmad-create-architecture` | `"Phase 3: Architecture"` |
+| `/bmad-create-epics-and-stories` | `"Phase 3: Epics and stories"` |
+| `/bmad-check-implementation-readiness` | `"Phase 3: Implementation readiness - READY"` |
+| `/bmad-sprint-planning` | `"Phase 4: Sprint planning"` |
+| `/bmad-dev-story` + `/bmad-code-review` (approved) | `"Story X.Y: {story title}"` |
+| `/bmad-retrospective` | `"Epic N: Retrospective"` |
+| `/bmad-quick-dev` | `"Quick dev: {brief description of change}"` |
+
+Rules:
+- Use `git add -A` to stage all changes
+- Push to the current branch immediately after committing
+- If no git remote exists, prompt the user to set one up first
+- If a skill fails or is abandoned mid-step, do NOT commit partial work
+```
+
+**Prerequisites:** The project must have `git init` done and a GitHub remote set up before the first BMAD skill runs. Set this up during Step 1-2 of the setup process.
+
+### Option B: Manual Commits (When to Commit and Push)
 
 | When | Commit Message Example | Why |
 |------|----------------------|-----|

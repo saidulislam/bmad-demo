@@ -82,6 +82,33 @@ Required path (gate = must complete before proceeding):
 
 Quick bypass: `/bmad-quick-dev` for bug fixes and small changes (skips full pipeline).
 
+## Auto-Commit After BMAD Phases
+
+**IMPORTANT:** After completing any BMAD skill that produces or modifies an artifact, automatically commit and push to GitHub. Do NOT ask the user — just do it. This ensures work is never lost and non-technical team members don't have to remember git commands.
+
+### Commit triggers and messages:
+
+| After This Skill | Commit Message |
+|-----------------|----------------|
+| `/bmad-product-brief` | `"Phase 1: Product brief"` |
+| `/bmad-create-prd` | `"Phase 2: PRD"` |
+| `/bmad-validate-prd` | `"Phase 2: PRD validation"` |
+| `/bmad-create-ux-design` | `"Phase 2: UX design"` |
+| `/bmad-create-architecture` | `"Phase 3: Architecture"` |
+| `/bmad-create-epics-and-stories` | `"Phase 3: Epics and stories"` |
+| `/bmad-check-implementation-readiness` | `"Phase 3: Implementation readiness - READY"` |
+| `/bmad-sprint-planning` | `"Phase 4: Sprint planning"` |
+| `/bmad-dev-story` + `/bmad-code-review` (approved) | `"Story X.Y: {story title}"` |
+| `/bmad-retrospective` | `"Epic N: Retrospective"` |
+| `/bmad-quick-dev` | `"Quick dev: {brief description of change}"` |
+
+### Rules:
+- Use `git add -A` to stage all changes
+- Commit message should be short and descriptive — no lengthy bodies needed
+- Push to the current branch immediately after committing
+- If no git remote exists yet, prompt the user to set one up first
+- If a BMAD skill fails or is abandoned mid-step, do NOT commit partial work
+
 ## Key BMAD Conventions
 
 - Each skill should run in a **fresh conversation** for clean context
