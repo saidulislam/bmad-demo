@@ -75,9 +75,36 @@ claude
 
 ## The Workflow (Run In Order)
 
-**Important:** Each step below should be run in a **fresh Claude Code session** (`/clear` or restart `claude`) to keep context clean. BMAD is designed this way — each agent gets a focused context window.
-
 **Auto-commit:** If you added the CLAUDE.md template (Step 4), Claude Code will **automatically commit and push to GitHub** after each completed phase. No git commands needed — your work is saved automatically. It also **auto-updates CLAUDE.md** with project details (tech stack, requirements, epics) as you progress. See [Git Commit Best Practices](#git-commit-best-practices) for the manual approach if you prefer.
+
+### Why Fresh Sessions Matter
+
+Each BMAD skill should ideally run in a **fresh Claude Code session** (`/clear` or restart `claude`). Here's why:
+
+**The context window problem:** Each session has a finite context window. If you chain all skills in one session, earlier conversations (discovery prompts, drafts, debates) fill up the context. By the time you hit `/bmad-dev-story`, Claude may forget architecture constraints or cut corners because it's working with a stuffed context.
+
+**Artifacts carry the context, not conversations.** When you start a fresh session, the agent reads the *artifacts* (the markdown files you produced) — not the conversation history. This gives each agent full attention on its task with clean context.
+
+### What You Can Safely Chain vs. What Needs Fresh Sessions
+
+| OK to Chain (Lightweight Pairs) | Why |
+|---------------------------------|-----|
+| `/bmad-product-brief` → `/bmad-create-prd` | Brief is short, PRD reads the artifact |
+| `/bmad-sprint-planning` → `/bmad-create-story` | Sprint planning is autonomous and tiny |
+| `/bmad-dev-story` → `/bmad-code-review` | Natural pair — review needs the dev context |
+
+| Use Fresh Sessions (Heavy Skills) | Why |
+|-----------------------------------|-----|
+| `/bmad-create-prd` → `/bmad-create-architecture` | Both are multi-step, heavy context consumers |
+| `/bmad-create-architecture` → `/bmad-create-epics-and-stories` | Both generate large documents with detailed decisions |
+| Any skill after `/bmad-dev-story` completes | Code implementation fills context fast |
+| `/bmad-create-epics-and-stories` → `/bmad-check-implementation-readiness` | Readiness check needs clean context to validate objectively |
+
+### Rule of Thumb
+
+- **Simple project** (small scope, few features) — chaining works fine
+- **Real app** (10+ FRs, multiple epics) — fresh sessions produce noticeably better output
+- **When in doubt** — start fresh. It costs 5 seconds and prevents quality degradation
 
 ---
 
