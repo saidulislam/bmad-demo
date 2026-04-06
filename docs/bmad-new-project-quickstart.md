@@ -285,6 +285,8 @@ A common question: "Which BMAD commands does my PM run vs. my architect vs. my d
 
 ### Command-to-Role Mapping
 
+#### Core BMAD Commands (BMM Module)
+
 | BMAD Command | Real-World Role |
 |--------------|----------------|
 | `/bmad-product-brief` | **Product Manager** (or Product Owner) |
@@ -301,6 +303,38 @@ A common question: "Which BMAD commands does my PM run vs. my architect vs. my d
 | `/bmad-sprint-status` | **Scrum Master**, **Engineering Manager**, or **Director/ED** |
 | `/bmad-retrospective` | **Scrum Master** facilitates, whole team participates |
 | `/bmad-quick-dev` | **Any Developer** (for bug fixes and small changes) |
+| `/bmad-correct-course` | **Tech Lead** or **Scrum Master** (mid-sprint scope change) |
+
+#### Testing Commands (TEA Module)
+
+| BMAD Command | Real-World Role |
+|--------------|----------------|
+| `/bmad-tea` | **Test Architect** or **QA Lead** (conversational persona) |
+| `/bmad-agent-qa` | **QA Engineer** (Quinn — ad-hoc QA conversations, edge case review) |
+| `/bmad-testarch-test-design` | **Test Architect** or **QA Lead** (risk-based test plan) |
+| `/bmad-testarch-framework` | **Test Architect** or **SDET** (initialize Playwright/Cypress) |
+| `/bmad-testarch-ci` | **DevOps Engineer** or **Test Architect** (CI/CD quality gates) |
+| `/bmad-testarch-atdd` | **QA Engineer** or **SDET** (write failing acceptance tests) |
+| `/bmad-testarch-automate` | **QA Engineer** or **SDET** (expand test coverage) |
+| `/bmad-testarch-nfr` | **Test Architect** or **Performance Engineer** (NFR validation) |
+| `/bmad-testarch-test-review` | **Test Architect** or **QA Lead** (quality audit) |
+| `/bmad-testarch-trace` | **Test Architect** or **Compliance Lead** (traceability matrix) |
+| `/bmad-qa-generate-e2e-tests` | **QA Engineer** or **SDET** (E2E test generation) |
+| `/bmad-teach-me-testing` | **Anyone** (TEA Academy — testing fundamentals) |
+
+#### Agent Personas (Conversational, Anytime)
+
+| BMAD Command | Real-World Role |
+|--------------|----------------|
+| `/bmad-agent-analyst` | **Business Analyst** (Mary — talk to her about requirements) |
+| `/bmad-agent-pm` | **Product Manager** (John) |
+| `/bmad-agent-architect` | **Architect** (Winston) |
+| `/bmad-agent-ux-designer` | **UX Designer** (Sally) |
+| `/bmad-agent-sm` | **Scrum Master** (Bob) |
+| `/bmad-agent-dev` | **Developer** (Amelia) |
+| `/bmad-agent-qa` | **QA Engineer** (Quinn) |
+| `/bmad-agent-tech-writer` | **Technical Writer** (Paige) |
+| `/bmad-agent-quick-flow-solo-dev` | **Full-Stack Developer** (Barry — rapid spec + implementation) |
 
 ### The Key Insight
 
