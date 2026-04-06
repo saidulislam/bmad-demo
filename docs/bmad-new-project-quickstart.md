@@ -22,8 +22,15 @@ git init
 ### 3. Install BMAD
 
 ```bash
-npx bmad-method install --modules "bmm,tea" --tools "claude-code" --user-name "YourName" --yes
+npx bmad-method install --modules "bmm,tea" --tools "claude-code" --user-name "Saidul" --yes
 ```
+
+| Flag | Purpose |
+|------|---------|
+| `--modules "bmm,tea"` | Install BMad Method (agile SDLC) + Test Architect (quality gates) |
+| `--tools "claude-code"` | Integrate with Claude Code IDE (53 slash commands) |
+| `--user-name "Saidul"` | Name agents use to greet and address you in conversations |
+| `--yes` | Accept all defaults without interactive prompts — repeatable and scriptable |
 
 This creates:
 - `_bmad/` — BMAD installation (config, modules, workflows)
