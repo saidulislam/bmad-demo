@@ -164,6 +164,121 @@ When the discussion ends, you get the same `A/P/C` menu again — nothing change
 
 ---
 
+## Parallel Execution: Multiple Agents Working in Parallel
+
+BMAD's `/bmad-dev-story` is designed for **sequential, single-agent execution** — one story at a time, with strict state tracking. This is intentional: it ensures quality, validation, and clean code review per story.
+
+But what if you want to ship faster? Here are your options.
+
+### Option 1: Multiple Claude Code Sessions (Manual Parallelism)
+
+Open multiple terminal windows, each running `claude` from the same project directory:
+
+```bash
+# Terminal 1
+cd ~/Projects/your-project
+claude
+> /bmad-dev-story 1-2
+
+# Terminal 2 (separate window)
+cd ~/Projects/your-project
+claude
+> /bmad-dev-story 1-3
+```
+
+**Best for:** Stories with no overlapping files (e.g., one frontend story + one backend story).
+
+**Caveats:**
+- You manage merge conflicts manually if they touch the same code
+- Sprint-status.yaml updates may collide — review before committing
+
+### Option 2: Git Worktrees + Multiple Sessions (Cleaner Parallelism)
+
+Each story gets its own working directory and branch — zero file conflicts during execution:
+
+```bash
+git worktree add ../your-project-story-1-2 -b story/1-2
+git worktree add ../your-project-story-1-3 -b story/1-3
+
+# Terminal 1
+cd ../your-project-story-1-2
+claude
+> /bmad-dev-story 1-2
+
+# Terminal 2
+cd ../your-project-story-1-3
+claude
+> /bmad-dev-story 1-3
+```
+
+When done, merge each branch back to main. **This is the cleanest manual parallel approach.**
+
+### Option 3: Bypass BMAD's Workflow — Ask Claude to Plan and Parallelize
+
+If you want maximum speed, skip `/bmad-dev-story` entirely for the implementation phase. Ask Claude directly:
+
+```
+Read all the BMAD artifacts (PRD, architecture, epics).
+Analyze the dependency graph between stories.
+Build the entire app as fast as possible using subagents in parallel
+where dependencies allow. Tell me your wave plan first, then execute.
+Commit after each wave.
+```
+
+Claude will:
+
+1. **Analyze dependencies** — produce a wave plan like:
+   ```
+   Wave 1 (sequential):  Story 1.1 (scaffolding) — must complete first
+   Wave 2 (parallel x4): Story 1.2, 1.3, 1.4, 2.1 — independent
+   Wave 3 (parallel x6): Story 2.2, 2.3, 2.4, 3.1, 7.1, 7.2
+   Wave 4 (parallel x8): Story 3.2, 3.3, 3.4, 4.1, 4.2, 5.1, 6.1, 6.2
+   ```
+
+2. **Launch subagents per wave** — multiple agents in parallel using the Agent tool
+
+3. **Brief each subagent directly** with the story spec and architecture context
+
+4. **Commit after each wave** completes
+
+### What You Trade Off with Parallel Execution
+
+| BMAD Sequential (`/bmad-dev-story`) | Parallel Execution |
+|------------------------------------|-------------------|
+| Per-story `/bmad-code-review` runs after each implementation | Code review happens at the end (or per wave) |
+| Sprint-status.yaml updates per story (visible progress) | Sprint-status updated in batch |
+| Red-green-refactor cycle enforced | Subagents do their best but skip strict TDD cycle |
+| Single point of failure per story | If one subagent fails, others may need rework |
+| Easy to track which agent broke what | Harder to attribute issues to a specific agent |
+
+### When to Use Each Approach
+
+| Scenario | Recommended Approach |
+|----------|---------------------|
+| **Learning BMAD / training your team** | Sequential `/bmad-dev-story` — the discipline IS the lesson |
+| **Production code with strict quality bars** | Sequential — validation gates catch bugs |
+| **Personal projects, prototypes, demos** | Parallel via Option 3 — speed wins |
+| **First epic of any project** | Sequential — build the foundation carefully |
+| **Subsequent epics with established patterns** | Parallel — patterns are set, isolated stories ship fast |
+
+### The Hybrid Approach (Best of Both Worlds)
+
+Use BMAD sequentially for the **first epic** (foundation), then switch to parallel mode for the remaining epics:
+
+1. **Epic 1 (Foundation):** Run `/bmad-dev-story` sequentially. This locks in patterns, project structure, naming conventions.
+2. **Epics 2-N:** Switch to parallel — ask Claude to read epics.md and the now-established codebase, then build remaining stories in waves.
+
+Result: solid foundation built carefully, fast iteration on isolated features.
+
+### Limitations to Be Aware Of
+
+- **Claude can't estimate wall-clock time accurately** — it doesn't know your machine speed, network latency, or how long file ops take. "By tomorrow" is a human concept, not a Claude one.
+- **File collisions are real** — even with smart partitioning, two agents touching shared config files = problems. Always review before committing.
+- **Subagents don't natively know BMAD's workflow protocol** — you have to brief each one with the full story spec and architecture context.
+- **No automatic merge logic** — subagents don't know about each other's changes during execution.
+
+---
+
 ### Phase 1 — Analysis
 
 #### Create Product Brief
