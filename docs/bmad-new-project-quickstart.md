@@ -232,6 +232,62 @@ Skips the full pipeline. Just describe what you want ("fix the login bug", "add 
 
 ---
 
+## Git Commit Best Practices
+
+### When to Commit and Push
+
+| When | Commit Message Example | Why |
+|------|----------------------|-----|
+| After `/bmad-product-brief` | `"Phase 1: Product brief"` | Milestone artifact — your idea is captured |
+| After `/bmad-create-prd` | `"Phase 2: PRD"` | Foundation document — rollback point if scope changes |
+| After `/bmad-validate-prd` | `"Phase 2: PRD validation"` | Quality gate evidence |
+| After `/bmad-create-ux-design` | `"Phase 2: UX design"` | Design decisions locked in |
+| After `/bmad-create-architecture` | `"Phase 3: Architecture"` | Technical design locked in |
+| After `/bmad-create-epics-and-stories` | `"Phase 3: Epics and stories"` | Work breakdown complete |
+| After `/bmad-check-implementation-readiness` | `"Phase 3: Implementation readiness - READY"` | Boundary between planning and coding |
+| After each story (`/bmad-dev-story` + `/bmad-code-review` approved) | `"Story 1.1: Project scaffolding"` | One story = one commit. Clean history, easy to review and revert |
+| After `/bmad-retrospective` | `"Epic 1: Retrospective"` | Closes out an epic cleanly |
+
+### When NOT to Commit
+
+- **Mid-step** — e.g., halfway through `/bmad-create-prd` (it builds the doc incrementally across 12 steps)
+- **After `/bmad-sprint-planning` alone** — bundle it with the first story commit
+- **After `/bmad-create-story` alone** — bundle the story spec with its `/bmad-dev-story` code (spec + code belong together)
+
+### The Pattern
+
+```bash
+# After each planning phase
+git add -A && git commit -m "Phase 1: Product brief"
+git add -A && git commit -m "Phase 2: PRD"
+git add -A && git commit -m "Phase 3: Architecture"
+git add -A && git commit -m "Phase 3: Epics and stories"
+git add -A && git commit -m "Phase 3: Implementation readiness - READY"
+
+# After each completed story (spec + code + review together)
+git add -A && git commit -m "Story 1.1: Project scaffolding"
+git add -A && git commit -m "Story 1.2: SSO authentication"
+git add -A && git commit -m "Story 2.1: API registration form"
+
+# Push whenever you want — after each commit or in batches
+git push
+```
+
+This gives you a git history that reads like a project timeline:
+```
+Story 2.1: API registration form
+Story 1.2: SSO authentication
+Story 1.1: Project scaffolding
+Phase 3: Implementation readiness - READY
+Phase 3: Epics and stories
+Phase 3: Architecture
+Phase 2: PRD
+Phase 1: Product brief
+Initial commit
+```
+
+---
+
 ## Tips for Building a Fully Functional App
 
 1. **Be specific during Product Brief** — the more detail you give Mary, the better everything downstream
@@ -239,7 +295,7 @@ Skips the full pipeline. Just describe what you want ("fix the login bug", "add 
 3. **During Architecture, choose a stack you know** — don't experiment with new tech in a demo project
 4. **Always run Implementation Readiness check** — it catches gaps that would cost hours to fix later
 5. **Run `/bmad-dev-story` in `acceptEdits` permission mode** — autonomous code writing without constant approval prompts
-6. **Commit after each story** — clean git history per story, easy to review and rollback
+6. **Commit after each planning phase and each completed story** — see Git Commit Best Practices above
 7. **Fresh session per skill** — don't chain multiple skills in one session. Each agent needs clean context.
 8. **Use `/bmad-help` when stuck** — it reads your current project state and tells you exactly what to do next
 
