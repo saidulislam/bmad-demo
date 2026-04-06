@@ -386,56 +386,59 @@ BMAD treats testing as opt-in because:
 
 **Murat (TEA) is the real testing power.** Quinn is for ad-hoc QA conversations.
 
-### Full TEA Skill Catalog
+### Full TEA Skill Catalog (with Phase, Real-World Role, and Purpose)
 
-| Command | When to Run | Purpose |
-|---------|-------------|---------|
-| `/bmad-tea` | Anytime | Talk to Murat (Test Architect persona) |
-| `/bmad-teach-me-testing` | Anytime | Learn testing fundamentals (TEA Academy) |
-| `/bmad-testarch-test-design` | After Architecture, before coding (Phase 3) | Risk-based test plan |
-| `/bmad-testarch-framework` | Before first dev story (Phase 3 → 4) | Initialize test framework (Playwright/Cypress) |
-| `/bmad-testarch-ci` | Before first dev story (Phase 3 → 4) | Set up CI/CD pipeline with quality gates |
-| `/bmad-testarch-atdd` | Per story, before dev (Phase 4) | Generate failing acceptance tests (TDD red phase) |
-| `/bmad-testarch-automate` | Per story, after dev (Phase 4) | Expand test coverage |
-| `/bmad-testarch-nfr` | After implementation (Phase 4) | Assess non-functional requirements |
-| `/bmad-testarch-test-review` | After implementation (Phase 4) | Quality audit (0-100 scoring) |
-| `/bmad-testarch-trace` | After implementation (Phase 4) | Traceability matrix + gate decision |
-| `/bmad-qa-generate-e2e-tests` | After feature complete (Phase 4) | Generate E2E tests for existing features |
+| Command | When to Run | Who Runs It (Real-World Role) | Purpose |
+|---------|-------------|------------------------------|---------|
+| `/bmad-tea` | Anytime | **Test Architect** or **QA Lead** | Talk to Murat (Test Architect persona) |
+| `/bmad-teach-me-testing` | Anytime | **Anyone** (training) | Learn testing fundamentals (TEA Academy) |
+| `/bmad-testarch-test-design` | Phase 3 — After Architecture, before coding | **Test Architect** or **QA Lead** | Risk-based test plan derived from architecture |
+| `/bmad-testarch-framework` | Phase 3 → 4 — Before first dev story | **Test Architect** or **SDET** | Initialize test framework (Playwright/Cypress) |
+| `/bmad-testarch-ci` | Phase 3 → 4 — Before first dev story | **DevOps Engineer** or **Test Architect** | Set up CI/CD pipeline with quality gates |
+| `/bmad-testarch-atdd` | Phase 4 — Per story, before dev | **QA Engineer** or **SDET** | Generate failing acceptance tests (TDD red phase) |
+| `/bmad-testarch-automate` | Phase 4 — Per story, after dev | **QA Engineer** or **SDET** | Expand test coverage |
+| `/bmad-testarch-test-review` | Phase 4 — After implementation | **Test Architect** or **QA Lead** | Quality audit (0-100 scoring) |
+| `/bmad-testarch-nfr` | Phase 4 — After implementation | **Test Architect** or **Performance Engineer** | Assess non-functional requirements (perf, security, reliability) |
+| `/bmad-testarch-trace` | Phase 4 — After implementation / end of epic | **Test Architect** or **Compliance Lead** | Traceability matrix + quality gate decision |
+| `/bmad-qa-generate-e2e-tests` | Phase 4 — After feature complete | **QA Engineer** or **SDET** | Generate E2E tests for existing features |
+| `/bmad-agent-qa` | Anytime | **QA Engineer** | Quinn — ad-hoc QA conversations, edge case review |
 
-### TEA-Enhanced BMAD Workflow
+### TEA-Enhanced BMAD Workflow (with Roles)
 
-When TEA is included, the workflow looks like this:
+When TEA is included, the workflow looks like this — with the role that runs each command:
 
 ```
 Phase 1 — Analysis
-  /bmad-product-brief
+  /bmad-product-brief                     [Product Manager]
 
 Phase 2 — Planning
-  /bmad-create-prd
-  /bmad-validate-prd
-  /bmad-create-ux-design                  (optional)
+  /bmad-create-prd                        [Product Manager]
+  /bmad-validate-prd                      [PM or Tech Lead]
+  /bmad-create-ux-design                  [UX Designer]                   (optional)
 
 Phase 3 — Solutioning
-  /bmad-create-architecture
-  /bmad-testarch-test-design              ← TEA: Risk-based test plan from architecture
-  /bmad-testarch-framework                ← TEA: Initialize Playwright/Cypress
-  /bmad-testarch-ci                       ← TEA: CI/CD quality gates
-  /bmad-create-epics-and-stories
-  /bmad-check-implementation-readiness
+  /bmad-create-architecture               [Architect / Tech Lead]
+  /bmad-testarch-test-design              [Test Architect / QA Lead]      ← TEA
+  /bmad-testarch-framework                [Test Architect / SDET]         ← TEA
+  /bmad-testarch-ci                       [DevOps Engineer / Test Arch]   ← TEA
+  /bmad-create-epics-and-stories          [Tech Lead / Scrum Master]
+  /bmad-check-implementation-readiness    [Tech Lead / Eng Manager]
 
 Phase 4 — Implementation (per story loop)
-  /bmad-sprint-planning
-  /bmad-create-story
-  /bmad-testarch-atdd                     ← TEA: Failing acceptance tests first
-  /bmad-dev-story
-  /bmad-testarch-automate                 ← TEA: Expand coverage
-  /bmad-code-review
-  /bmad-testarch-test-review              ← TEA: Quality score
-  /bmad-testarch-trace                    ← TEA: Traceability matrix
-  /bmad-testarch-nfr                      ← TEA: NFR validation
-  /bmad-sprint-status
+  /bmad-sprint-planning                   [Scrum Master / Eng Manager]
+  /bmad-create-story                      [Tech Lead / Senior Developer]
+  /bmad-testarch-atdd                     [QA Engineer / SDET]            ← TEA
+  /bmad-dev-story                         [Developer]
+  /bmad-testarch-automate                 [QA Engineer / SDET]            ← TEA
+  /bmad-code-review                       [Senior Developer / Tech Lead]
+  /bmad-testarch-test-review              [Test Architect / QA Lead]      ← TEA
+  /bmad-sprint-status                     [Scrum Master / Eng Manager]
   ... repeat per story ...
-  /bmad-retrospective
+
+End of Epic
+  /bmad-testarch-trace                    [Test Architect / Compliance]   ← TEA
+  /bmad-testarch-nfr                      [Test Arch / Perf Engineer]     ← TEA
+  /bmad-retrospective                     [Scrum Master + whole team]
 ```
 
 ### Enterprise Recommendation
