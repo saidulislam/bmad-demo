@@ -108,6 +108,62 @@ Each BMAD skill should ideally run in a **fresh Claude Code session** (`/clear` 
 
 ---
 
+## Understanding the A/P/C Menu
+
+Throughout the BMAD workflow, you'll see this menu at decision points:
+
+```
+Select: [A] Advanced Elicitation  [P] Party Mode  [C] Continue
+```
+
+### `C` — Continue (Default, Use Most of the Time)
+
+Accepts the agent's proposal and moves to the next step. This is your answer 90% of the time. The agent proposed something reasonable — move forward.
+
+### `A` — Advanced Elicitation (When You Disagree or Want Deeper Analysis)
+
+Pushes the agent to reconsider using structured critique methods — Socratic questioning, first principles, pre-mortem, red team analysis. Use it when:
+
+- You disagree with a classification or decision but aren't sure how to articulate why
+- The agent's proposal feels too surface-level and you want rigorous analysis
+- You want to stress-test an assumption before locking it in
+
+### `P` — Party Mode (Simulated Team Review)
+
+Triggers a multi-agent discussion where all BMAD personas debate the decision from their perspectives. You'll see dialogue like:
+
+```
+John (PM): From a product perspective...
+Winston (Architect): Technically, I'd push back on...
+Sally (UX): For the user experience, we should consider...
+Quinn (QA): From a testability standpoint...
+```
+
+When the discussion ends, you get the same `A/P/C` menu again — nothing changes automatically. You decide whether to incorporate their feedback or just press `C`.
+
+#### When Party Mode Is Worth It
+
+| Situation | Why It Helps |
+|-----------|-------------|
+| Architecture decisions you're unsure about | Architect and Developer might disagree on a tech choice — surfaces trade-offs you hadn't considered |
+| Scope debates | PM might argue a feature is essential while Scrum Master says it bloats the MVP — helps you cut scope with confidence |
+| Complex domain requirements | For regulated industries (fintech, healthcare), multiple perspectives catch compliance gaps early |
+| You're the only person on the project | Simulates the peer review you'd normally get from colleagues — breaks you out of tunnel vision |
+| Before a major decision you can't easily reverse | Database choice, auth architecture, monolith vs microservices — worth 2 minutes of simulated debate |
+
+#### When to Skip Party Mode
+
+- The decision is obvious (e.g., a personal tool is clearly a web app)
+- You already know the answer and just want to move forward
+- The project is low-complexity with straightforward requirements
+- You're deep into implementation — Party Mode is most useful during planning and solutioning
+
+#### Rule of Thumb
+
+**Use `P` when you'd normally want a second opinion from a colleague.** If you wouldn't pause to ask someone, just press `C`.
+
+---
+
 ### Phase 1 — Analysis
 
 #### Create Product Brief
