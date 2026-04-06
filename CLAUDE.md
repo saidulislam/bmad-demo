@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a **BMAD Method v6.2.2** project — an AI-driven agile development framework. The demo project being built is an **API Health Dashboard** (enterprise internal tool for a financial institution) currently in Phase 3 (Solutioning).
+This is a **BMAD Method v6.2.2** project — an AI-driven agile development framework. The demo project being built is an **API Health Dashboard** (enterprise internal tool) currently in Phase 3 (Solutioning).
 
 BMAD uses specialized AI agent personas and structured workflows to move from product ideation through implementation. Each workflow is invoked as a slash command (e.g., `/bmad-create-prd`) and produces markdown artifacts that feed the next phase.
 

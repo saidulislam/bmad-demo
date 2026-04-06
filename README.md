@@ -2,7 +2,7 @@
 
 A hands-on demonstration of the [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) (Breakthrough Method for Agile AI-Driven Development) v6.2.2, walking through the full structured AI-assisted development lifecycle from product ideation to implementation-ready architecture.
 
-**Demo project:** An internal real-time monitoring tool for engineering teams to track API uptime, latency, error rates, and SLA compliance across microservices — designed for an enterprise financial institution context.
+**Demo project:** An internal real-time monitoring tool for engineering teams to track API uptime, latency, error rates, and SLA compliance across microservices — designed for an enterprise context with regulatory compliance requirements.
 
 ---
 

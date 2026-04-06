@@ -4,7 +4,7 @@
 
 **Demo Project:** API Health Dashboard — a real-time monitoring tool for engineering teams to track API uptime, latency, error rates, and SLA compliance across microservices.
 
-**Context:** Enterprise internal tool for a large financial institution. Regulated environment (DORA, SOX, OCC heightened standards).
+**Context:** Enterprise internal tool for a large organization. Regulated environment (DORA, SOX, OCC heightened standards).
 
 ---
 
