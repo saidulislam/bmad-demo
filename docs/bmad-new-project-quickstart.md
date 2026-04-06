@@ -37,7 +37,35 @@ This creates:
 - `.claude/skills/` — 53 Claude Code skills as slash commands
 - `{output_folder}/` — Where all artifacts will be saved
 
-### 4. Start Claude Code
+### 4. Add the CLAUDE.md Template
+
+Copy the default template into your project root. This gives Claude Code project context, auto-commit directives, and self-updating instructions:
+
+```bash
+cp /path/to/bmad-demo/docs/CLAUDE-template.md ./CLAUDE.md
+```
+
+Or if starting from scratch, grab it from the [CLAUDE-template.md](CLAUDE-template.md) in this repo.
+
+**What the template does:**
+- **Auto-commits** after every completed BMAD phase (no git commands needed)
+- **Auto-updates itself** after each phase with project-specific details (tech stack, requirements count, epic list, etc.)
+- Includes workflow orchestration rules, core principles, and task management directives
+- Starts generic — becomes project-specific as you progress through phases
+
+### 5. Set Up GitHub Remote
+
+```bash
+gh repo create your-project-name --public --source=. --push
+```
+
+Or if the repo already exists:
+
+```bash
+git remote add origin https://github.com/youruser/your-project-name.git
+```
+
+### 6. Start Claude Code
 
 ```bash
 claude
@@ -49,7 +77,7 @@ claude
 
 **Important:** Each step below should be run in a **fresh Claude Code session** (`/clear` or restart `claude`) to keep context clean. BMAD is designed this way — each agent gets a focused context window.
 
-**Auto-commit:** If your project has the CLAUDE.md directive (see below), Claude Code will **automatically commit and push to GitHub** after each completed phase. No git commands needed — your work is saved automatically. See the [Git Commit Best Practices](#git-commit-best-practices) section for the manual approach if you prefer.
+**Auto-commit:** If you added the CLAUDE.md template (Step 4), Claude Code will **automatically commit and push to GitHub** after each completed phase. No git commands needed — your work is saved automatically. It also **auto-updates CLAUDE.md** with project details (tech stack, requirements, epics) as you progress. See [Git Commit Best Practices](#git-commit-best-practices) for the manual approach if you prefer.
 
 ---
 
