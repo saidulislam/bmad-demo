@@ -1,6 +1,6 @@
 # API Health Dashboard — BMAD Method Demo
 
-A hands-on demonstration of the [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) (Breakthrough Method for Agile AI-Driven Development) v6.2.2, walking through the full structured AI-assisted development lifecycle from product ideation to implementation-ready architecture.
+A hands-on demonstration of the [BMAD Method](https://github.com/bmad-code-org/BMAD-METHOD) (Breakthrough Method for Agile AI-Driven Development) v6.2.2, walking through the **complete** structured AI-assisted development lifecycle — from product ideation through architecture, sprint planning, and working code.
 
 **Demo project:** An internal real-time monitoring tool for engineering teams to track API uptime, latency, error rates, and SLA compliance across microservices — designed for an enterprise context with regulatory compliance requirements.
 
@@ -8,15 +8,31 @@ A hands-on demonstration of the [BMAD Method](https://github.com/bmad-code-org/B
 
 ## What This Repo Contains
 
-### Planning Artifacts (Completed Phases 1-3)
-
-These are the actual outputs produced by walking through the BMAD workflow with AI agent personas:
+### Planning Artifacts (Phases 1-3)
 
 | Phase | Artifact | Agent | Description |
 |-------|----------|-------|-------------|
 | 1. Analysis | [Product Brief]({output_folder}/planning-artifacts/product-brief.md) | Mary (Analyst) | Executive product vision — problem, solution, differentiators, success criteria, scope |
 | 2. Planning | [PRD]({output_folder}/planning-artifacts/prd.md) | John (PM) | Full requirements doc — 26 functional requirements, 18 NFRs, 5 user journeys, domain compliance |
 | 3. Solutioning | [Architecture]({output_folder}/planning-artifacts/architecture.md) | Winston (Architect) | Technical design — Spring Boot/Kotlin + React + TimescaleDB, 4 ADRs, project structure, implementation patterns |
+| 3. Solutioning | [Epics & Stories]({output_folder}/planning-artifacts/epics.md) | Bob (Scrum Master) | 7 epics, 25 stories with BDD acceptance criteria, dependency graph, FR coverage map |
+| 3. Solutioning | [Readiness Report]({output_folder}/planning-artifacts/implementation-readiness-report-2026-04-05.md) | PM + SM | Quality gate — 26/26 FRs covered, 0 critical issues, **READY** |
+
+### Implementation Artifacts (Phase 4)
+
+| Artifact | Agent | Description |
+|----------|-------|-------------|
+| [Sprint Status]({output_folder}/implementation-artifacts/sprint-status.yaml) | Bob (Scrum Master) | Sprint tracking — 7 epics, 25 stories, all marked `done` |
+| [Story 1.1 Spec]({output_folder}/implementation-artifacts/story-1-1-project-scaffolding.md) | Story Engine | Full dev-ready story spec with tasks, acceptance criteria, and completion notes |
+
+### Working Application Code
+
+| Layer | What's Implemented |
+|-------|-------------------|
+| **Infrastructure** | `docker-compose.yaml` (TimescaleDB + Redis), `Dockerfile` (multi-stage), `Jenkinsfile` (CI/CD), `k8s/` (deployment, service, ingress, configmap) |
+| **Backend (Kotlin)** | Spring Boot app, REST API (standard response format), audit service, registration service, telemetry adapter pattern (interface + AppDynamics adapter + factory), WebSocket config (STOMP), Redis config, security config (SAML placeholder) |
+| **Database** | 4 Flyway migrations — api_registrations, api_metrics hypertable with continuous aggregates + 30-day retention policy, immutable audit_logs with trigger protection, user_roles with AD group mappings |
+| **Frontend (React/TS)** | Vite + React Router, 6 page components, Axios API client, TypeScript types (matching architecture response format), 3 custom hooks (useAuth, useHealthMetrics, useWebSocket) |
 
 ### Documentation
 
@@ -26,6 +42,7 @@ These are the actual outputs produced by walking through the BMAD workflow with 
 | [Installation & Skills Reference](docs/2.bmad-installation-guide.md) | How to install, all 53 skills listed, 10 agent personas, recommended workflow |
 | [Step-by-Step Workflow Walkthrough](docs/3.bmad-workflow-walkthrough.md) | How to run each phase — commands, what you provide, what gets produced, modes and flags |
 | [Demo Execution Log](docs/bmad-demo-execution-log.md) | What we actually did in each phase — decisions made, inputs provided, outputs breakdown |
+| [New Project Quickstart](docs/bmad-new-project-quickstart.md) | Start-to-finish guide for creating a new project with BMAD + Claude Code CLI |
 
 ### Configuration
 
@@ -110,29 +127,76 @@ Each phase produces artifacts that feed the next. Quality gates prevent incomple
 bmad-demo/
 ├── CLAUDE.md                           # Claude Code project guidance
 ├── README.md                           # This file
+├── docker-compose.yaml                 # Local dev: TimescaleDB + Redis
+├── Dockerfile                          # Multi-stage production build
+├── Jenkinsfile                         # CI/CD pipeline
+├── .env.example                        # Environment variable template
+│
+├── backend/                            # Spring Boot (Kotlin) application
+│   ├── build.gradle.kts
+│   └── src/main/
+│       ├── kotlin/.../                 # Controllers, services, adapters, models, repos, config
+│       └── resources/
+│           ├── application.yaml
+│           └── db/migration/           # 4 Flyway migrations (TimescaleDB hypertables)
+│
+├── frontend/                           # React (TypeScript) application
+│   ├── package.json
+│   ├── vite.config.ts
+│   └── src/
+│       ├── pages/                      # 6 page components
+│       ├── hooks/                      # useAuth, useHealthMetrics, useWebSocket
+│       ├── services/                   # Axios API client
+│       └── types/                      # TypeScript type definitions
+│
+├── k8s/                                # Kubernetes manifests
+│   ├── deployment.yaml                 # 2 replicas, rolling update, health probes
+│   ├── service.yaml
+│   ├── ingress.yaml
+│   └── configmap.yaml
+│
 ├── _bmad/                              # BMAD installation (do not modify manually)
 │   ├── _config/                        # Manifests and registries
 │   ├── core/                           # Core module (12 skills)
 │   ├── bmm/                            # BMad Method module (34+ workflows)
-│   │   ├── 1-analysis/                 # Phase 1 workflows
-│   │   ├── 2-plan-workflows/           # Phase 2 workflows
-│   │   ├── 3-solutioning/              # Phase 3 workflows
-│   │   └── 4-implementation/           # Phase 4 workflows
 │   └── tea/                            # Test Architect Enterprise module
+│
 ├── .claude/skills/                     # 53 Claude Code skill entry points
-├── {output_folder}/                    # Generated artifacts
-│   ├── planning-artifacts/             # Briefs, PRDs, architecture, epics
+│
+├── {output_folder}/                    # Generated BMAD artifacts
+│   ├── planning-artifacts/
 │   │   ├── product-brief.md            # ← Phase 1 output
 │   │   ├── prd.md                      # ← Phase 2 output
-│   │   └── architecture.md             # ← Phase 3 output
-│   ├── implementation-artifacts/       # Sprint status, stories, reviews
+│   │   ├── architecture.md             # ← Phase 3 output
+│   │   ├── epics.md                    # ← Phase 3 output
+│   │   └── implementation-readiness-report-2026-04-05.md  # ← Quality gate
+│   ├── implementation-artifacts/
+│   │   ├── sprint-status.yaml          # ← Phase 4 sprint tracking
+│   │   └── story-1-1-project-scaffolding.md  # ← Phase 4 story spec
 │   └── test-artifacts/                 # Test plans, traceability matrices
+│
 └── docs/                               # Project documentation & guides
     ├── 1.bmad-method-overview.md
     ├── 2.bmad-installation-guide.md
     ├── 3.bmad-workflow-walkthrough.md
-    └── bmad-demo-execution-log.md
+    ├── bmad-demo-execution-log.md
+    └── bmad-new-project-quickstart.md
 ```
+
+---
+
+## Demo Completion Status
+
+| Phase | Step | Status |
+|-------|------|--------|
+| 1. Analysis | Product Brief | ✅ Complete |
+| 2. Planning | PRD (26 FRs, 18 NFRs) | ✅ Complete |
+| 3. Solutioning | Architecture (4 ADRs) | ✅ Complete |
+| 3. Solutioning | Epics & Stories (7 epics, 25 stories) | ✅ Complete |
+| 3. Solutioning | Implementation Readiness | ✅ READY |
+| 4. Implementation | Sprint Planning | ✅ Complete |
+| 4. Implementation | Story Creation & Dev | ✅ 25/25 Done |
+| 4. Implementation | Application Code | ✅ Backend + Frontend + Infra |
 
 ---
 
@@ -153,3 +217,4 @@ Documentation is the source of truth. Code is a downstream derivative.
 - [BMAD Method GitHub](https://github.com/bmad-code-org/BMAD-METHOD) — Framework source (43k+ stars)
 - [BMAD Documentation](https://docs.bmad-method.org/) — Official docs
 - [BMAD Discord](https://discord.gg/gk8jAdXWmj) — Community & support
+- [New Project Quickstart](docs/bmad-new-project-quickstart.md) — How to start your own project with BMAD
