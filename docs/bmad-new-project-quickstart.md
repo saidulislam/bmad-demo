@@ -279,6 +279,59 @@ Result: solid foundation built carefully, fast iteration on isolated features.
 
 ---
 
+## Who Executes Which Command (Role Mapping)
+
+A common question: "Which BMAD commands does my PM run vs. my architect vs. my developers?" Each command maps to the role that would normally do that work in a traditional engineering team.
+
+### Command-to-Role Mapping
+
+| BMAD Command | Real-World Role |
+|--------------|----------------|
+| `/bmad-product-brief` | **Product Manager** (or Product Owner) |
+| `/bmad-create-prd` | **Product Manager** (with input from stakeholders, business analyst) |
+| `/bmad-validate-prd` | **Product Manager** or **Tech Lead** (sanity check) |
+| `/bmad-create-ux-design` | **UX Designer** (or PM if no dedicated designer) |
+| `/bmad-create-architecture` | **Architect** or **Tech Lead** |
+| `/bmad-create-epics-and-stories` | **Tech Lead** or **Scrum Master** (with Architect input) |
+| `/bmad-check-implementation-readiness` | **Tech Lead** or **Engineering Manager** (gate keeper) |
+| `/bmad-sprint-planning` | **Scrum Master** or **Engineering Manager** |
+| `/bmad-create-story` | **Tech Lead** or **Senior Developer** (preparing the story for the dev) |
+| `/bmad-dev-story` | **Developer** (the person who would normally implement the story) |
+| `/bmad-code-review` | **Senior Developer** or **Tech Lead** |
+| `/bmad-sprint-status` | **Scrum Master**, **Engineering Manager**, or **Director/ED** |
+| `/bmad-retrospective` | **Scrum Master** facilitates, whole team participates |
+| `/bmad-quick-dev` | **Any Developer** (for bug fixes and small changes) |
+
+### The Key Insight
+
+**Each BMAD command maps to the role that would normally do that work.** The agent just becomes a force multiplier for that role:
+
+- A PM still owns the PRD — they just use Claude to draft it faster
+- An Architect still owns the design — Claude helps explore options and document decisions
+- A Developer still owns the code — Claude implements based on the spec they prepared
+
+BMAD is **role-respecting**: it doesn't replace your PM, architect, or developers — it gives each of them a structured AI co-pilot for their specific responsibilities.
+
+### Three Ways to Distribute the Work
+
+| Approach | How It Works | When to Use |
+|----------|--------------|-------------|
+| **Same person, multiple hats** | A single tech lead or senior developer runs the entire BMAD pipeline solo | Solo projects, prototypes, small teams. Faster but loses multi-perspective input |
+| **Handoff between roles** | PM runs Phase 1-2 → Architect runs Phase 3 → Developers run Phase 4 | Larger teams with specialized roles. Slower but each role contributes their expertise |
+| **Pair model** | PM + Tech Lead together for planning, then Developers take over for implementation | Best for important projects. Combines speed of solo with multi-perspective benefits |
+
+### For Team Adoption
+
+When introducing BMAD to your engineering organization, decide upfront which model fits your team:
+
+- **Small teams (< 5 engineers)** — Same person, multiple hats. Tech lead runs the whole pipeline.
+- **Medium teams with PM + Engineering** — Handoff model. Clear ownership transitions.
+- **Larger orgs with dedicated roles** — Pair model for major initiatives, handoff for routine work.
+
+The role mapping also makes it easier to set permissions and review responsibilities — your PMs touch planning artifacts, your engineers touch implementation artifacts.
+
+---
+
 ### Phase 1 — Analysis
 
 #### Create Product Brief
